@@ -17,18 +17,7 @@ public class MyntraWishlist {
 
     public static void main(String[] args) {
 
-        // =====================================================
-        // CHROME OPTIONS
-        // =====================================================
-
         ChromeOptions options = new ChromeOptions();
-
-        /*
-         * IMPORTANT:
-         * This is a completely separate Chrome profile.
-         *
-         * Do NOT use your normal Chrome profile here.
-         */
 
         options.addArguments(
                 "--user-data-dir=C:\\selenium\\myntra-selenium-profile"
@@ -36,25 +25,12 @@ public class MyntraWishlist {
 
         options.addArguments("--start-maximized");
 
-        /*
-         * These options help Chrome start correctly when
-         * Selenium is creating a fresh profile.
-         */
-
         options.addArguments("--remote-allow-origins=*");
-
-        // =====================================================
-        // START CHROME
-        // =====================================================
 
         WebDriver driver = new ChromeDriver(options);
 
         WebDriverWait wait =
                 new WebDriverWait(driver, Duration.ofSeconds(30));
-
-        // =====================================================
-        // OPEN MYNTRA
-        // =====================================================
 
         driver.get("https://www.myntra.com/");
 
@@ -63,11 +39,6 @@ public class MyntraWishlist {
                         By.tagName("body")
                 )
         );
-
-        // =====================================================
-        // SEARCH PRODUCT
-        // =====================================================
-
         WebElement searchBox = wait.until(
                 ExpectedConditions.elementToBeClickable(
                         By.cssSelector(
@@ -82,20 +53,11 @@ public class MyntraWishlist {
 
         searchBox.sendKeys(Keys.ENTER);
 
-        // =====================================================
-        // WAIT FOR SEARCH RESULTS
-        // =====================================================
-
         wait.until(
                 ExpectedConditions.presenceOfElementLocated(
                         By.cssSelector("li.product-base")
                 )
         );
-
-        // =====================================================
-        // GET PRODUCTS
-        // =====================================================
-
         List<WebElement> products =
                 driver.findElements(
                         By.cssSelector("li.product-base")
@@ -104,20 +66,11 @@ public class MyntraWishlist {
         if (products.isEmpty()) {
             return;
         }
-
-        // =====================================================
-        // SELECT FIRST PRODUCT
-        // =====================================================
-
         WebElement firstProduct = products.get(0);
 
         String productText = firstProduct.getText();
 
         firstProduct.click();
-
-        // =====================================================
-        // WAIT FOR PRODUCT PAGE
-        // =====================================================
 
         wait.until(
                 ExpectedConditions.presenceOfElementLocated(
@@ -130,11 +83,6 @@ public class MyntraWishlist {
                         )
                 )
         );
-
-        // =====================================================
-        // FIND WISHLIST BUTTON
-        // =====================================================
-
         List<WebElement> wishlistButtons =
                 driver.findElements(
                         By.xpath(
@@ -147,11 +95,6 @@ public class MyntraWishlist {
                 );
 
         boolean wishlistClicked = false;
-
-        // =====================================================
-        // CLICK WISHLIST
-        // =====================================================
-
         for (WebElement button : wishlistButtons) {
 
             try {
@@ -173,29 +116,15 @@ public class MyntraWishlist {
         if (!wishlistClicked) {
             return;
         }
-
-        // =====================================================
-        // WAIT FOR WISHLIST ACTION
-        // =====================================================
-
         try {
 
             Thread.sleep(3000);
 
         } catch (InterruptedException ignored) {
         }
-
-        // =====================================================
-        // OPEN WISHLIST PAGE
-        // =====================================================
-
         driver.get(
                 "https://www.myntra.com/wish-list"
         );
-
-        // =====================================================
-        // WAIT FOR WISHLIST PAGE
-        // =====================================================
 
         wait.until(
                 ExpectedConditions.urlContains(
@@ -208,17 +137,6 @@ public class MyntraWishlist {
                         By.tagName("body")
                 )
         );
-
-        // =====================================================
-        // KEEP BROWSER OPEN
-        // =====================================================
-
-        /*
-         * DO NOT use driver.quit().
-         *
-         * The browser will remain open until you close it
-         * manually.
-         */
 
         try {
 
