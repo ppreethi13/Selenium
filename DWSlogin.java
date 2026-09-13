@@ -34,8 +34,8 @@ public class DWSlogin {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 		driver.get(url);
 		driver.findElement(By.xpath("//a[text()='Log in']")).click();
-		driver.findElement(By.id("Email")).sendKeys("ppreethi1311@gmail.com");
-		driver.findElement(By.id("Password")).sendKeys("preethi@123");
+		driver.findElement(By.id("Email")).sendKeys("username");
+		driver.findElement(By.id("Password")).sendKeys("password");
 		driver.findElement(By.cssSelector("[value='Log in']")).click();
 	}
 
