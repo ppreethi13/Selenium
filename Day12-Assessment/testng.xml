@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<suite name="OrangeHRMSuite">
+
+    <test name="VacancyCreationTest">
+
+        <classes>
+
+            <class name="tests.VacancyTest"/>
+
+        </classes>
+
+    </test>
+
+</suite>
