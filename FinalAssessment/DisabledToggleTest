@@ -1,0 +1,42 @@
+package testcases;
+
+import java.time.Duration;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class DisabledToggleTest {
+
+    public static void main(String[] args) throws Exception {
+
+        WebDriver driver = new ChromeDriver();
+
+        driver.manage().window().maximize();
+
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+
+        driver.get("https://demoapps.qspiders.com/ui/toggle?sublist=0");
+
+       WebElement ele =  driver.findElement(By.id("tog"));
+       WebElement ele1 =  driver.findElement(By.id("togg"));
+       WebElement ele2 =  driver.findElement(By.id("toggl"));
+       WebElement ele3 =  driver.findElement(By.id("toggler"));
+       driver.findElement(By.id("togglers")).click();
+       JavascriptExecutor js = (JavascriptExecutor)driver;
+       js.executeScript("arguments[0].click()",ele);
+       js.executeScript("arguments[0].click()",ele1);
+       js.executeScript("arguments[0].click()",ele2);
+       js.executeScript("arguments[0].click()",ele3);
+        Thread.sleep(2000);
+       if(driver.getCurrentUrl().contains("sublist=0"))
+       {
+    	   System.out.println("order is placed");
+       }else {
+    	   System.out.println("order not placed");
+       }
+
+        driver.quit();
+    }
+}
